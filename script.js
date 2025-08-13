@@ -1,3 +1,29 @@
+// Theme Toggle
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = themeToggle.querySelector('i');
+
+// Check for saved theme preference or default to dark mode
+const currentTheme = localStorage.getItem('theme') || 'dark';
+document.documentElement.setAttribute('data-theme', currentTheme);
+updateThemeIcon(currentTheme);
+
+themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+});
+
+function updateThemeIcon(theme) {
+    if (theme === 'light') {
+        themeIcon.className = 'fas fa-sun';
+    } else {
+        themeIcon.className = 'fas fa-moon';
+    }
+}
+
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
@@ -364,15 +390,15 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Add focus management for accessibility
-document.querySelectorAll('a, button, input, textarea').forEach(element => {
-    element.addEventListener('focus', function() {
-        this.style.outline = '2px solid var(--accent-color)';
-        this.style.outlineOffset = '2px';
+// Professional hover effects for interactive elements
+document.querySelectorAll('.skill-item, .project-card, .certification-card, .contact-item').forEach(element => {
+    element.addEventListener('mouseenter', function() {
+        this.style.transform = this.classList.contains('skill-item') ? 'translateX(6px)' : 
+                              this.classList.contains('contact-item') ? 'translateX(4px)' : 'translateY(-4px)';
     });
     
-    element.addEventListener('blur', function() {
-        this.style.outline = 'none';
+    element.addEventListener('mouseleave', function() {
+        this.style.transform = 'none';
     });
 });
 
